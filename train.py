@@ -15,7 +15,7 @@ torch.cuda.set_device(0)
 
 # Hyper parameters
 epoch_num = 300
-batch_size = 128
+batch_size = 512
 lr = 1e-4  # learning rate
 img_channel = 3  # channel of generated image
 workers = 2  # subprocess number for load the image
@@ -90,7 +90,7 @@ for epoch in range(epoch_num):
 
         opt.step()
 
-        if step % 20 is 0:
+        if step % 20 == 0:
 
             net.eval()  # 使用过BN或者其他的话一定要记得在测试的时候使用这句话！！！！！
 
@@ -117,7 +117,7 @@ for epoch in range(epoch_num):
 
             net.train()  # 使用过BN或者其他的话一定要记得在测试的时候使用这句话！！！！！
 
-            torch.save(net.state_dict(), 'net{}-{}.pth'.format(epoch, step))  # 保存模型参数
-
             print('epoch:{}, step:{}, train_acc:{:.3f} %, test_acc:{:.3f} %, loss:{:.3f}, time:{:.1f} min'
-                  .format(epoch, step, train_acc * 100, test_acc * 100, loss.data[0], (time() - start) / 60))
+                  .format(epoch, step, train_acc * 100, test_acc * 100, loss.item(), (time() - start) / 60))
+
+torch.save(net.state_dict(), 'net{}-{}.pth'.format(epoch, step))  # 保存模型参数

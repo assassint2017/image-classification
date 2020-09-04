@@ -63,7 +63,7 @@ class VGG_GAP(nn.Module):  # 根据VGG的设计原则来进行改编
 
             if isinstance(layer, nn.Conv2d):
 
-                nn.init.kaiming_normal(layer.weight.data)
+                nn.init.kaiming_normal_(layer.weight.data)
 
             elif isinstance(layer, nn.BatchNorm2d):
 
